@@ -1,0 +1,12 @@
+<code>float screenstretch;
+float screenmove;
+//level2go!;
+
+string code;
+string line;
+<bug>int linecount=0;</bug>
+float initialLineY = 2;
+int bugline = <warp>0</warp>;
+
+return;
+</code>
