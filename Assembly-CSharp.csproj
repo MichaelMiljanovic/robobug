@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{FABB34F2-F4D1-25C3-F6B4-FB3584A34B74}</ProjectGuid>
+	<ProjectGuid>{162622E5-FE03-BE44-C6F7-151656AC3C65}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -171,12 +171,14 @@
      <Compile Include="Assets\Scripts\Oldscripts\sumTest.cs" />
      <Compile Include="Assets\Scripts\SelectedTool.cs" />
      <Compile Include="Assets\Scripts\hero2Controller.cs" />
+     <Compile Include="Assets\Scripts\printer.cs" />
+     <Compile Include="Assets\Scripts\warper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{B69F1CCB-0976-FFDD-546C-EFBB5C1DD710}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+      <Project>{F2DE1946-45B3-47B0-2029-F80B0F2292F0}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
     <ProjectReference Include="Assembly-UnityScript-firstpass.unityproj">
-      <Project>{2474B6DB-0693-3CA7-677C-A7A1C06EFB56}</Project>      <Name>Assembly-UnityScript-firstpass</Name>    </ProjectReference>
+      <Project>{8AE76139-BF4E-A111-D474-B080704DC4A3}</Project>      <Name>Assembly-UnityScript-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

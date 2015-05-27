@@ -101,12 +101,12 @@ public class hero2Controller : MonoBehaviour
 		{
 
 				AudioSource ad = GetComponent<AudioSource> ();
-				if (!walkloop && Input.GetAxis ("Horizontal") != 0f && rigidbody2D.velocity.y == 0) {
+				if (!walkloop && Input.GetAxis ("Horizontal") != 0f && rigidbody2D.velocity.y == 0 && !onWall) {
 						ad.Play ();
 						walkloop = true;
 						ad.loop = true;
 				}
-				if (Input.GetAxis ("Horizontal") == 0f || rigidbody2D.velocity.y != 0) {
+				if (Input.GetAxis ("Horizontal") == 0f || rigidbody2D.velocity.y != 0 || onWall) {
 						ad.loop = false;
 						walkloop = false;
 				}

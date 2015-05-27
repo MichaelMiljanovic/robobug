@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 using System.IO;
@@ -11,14 +11,11 @@ public class LevelGenerator : MonoBehaviour
 		public GameObject leveltext;
 		public GameObject bugobject;
 		public GameObject lineobject;
+		public GameObject printobject;
+		public GameObject warpobject;
 		public GameObject hero;
-		float botincrement;
-		float barstretch;
-		float barmove;
-		float screenstretch;
-		float screenmove;
+		public GameObject sidebaroutput;
 		string codetext;
-		string line;
 		public int linecount = 0;
 		float initialLineY = 3f;
 		float linespacing = 0.825f;
@@ -26,24 +23,30 @@ public class LevelGenerator : MonoBehaviour
 		int bugline = 0;
 		float bugsize = 1f;
 		float bugscale = 1.5f;
-		List<GameObject> lines;
 		GameObject levelbug;
 		int currentlevel = 1;
 		float leveldelay = 1f;
 		float startNextLevel = 0f;
 		int maxlevel = 2;
+		List<GameObject> lines;
+		List<GameObject> outputs;
+		List<GameObject> warps;
+
 
 		// Use this for initialization
 		void Start ()
 		{
 				lines = new List<GameObject> ();
+				outputs = new List<GameObject> ();
+				warps = new List<GameObject> ();
+
 				BuildLevel ("level1.txt");
 		}
 	
 		// Update is called once per frame
 		void Update ()
 		{
-			if (levelbug) {
+				if (levelbug) {
 						if (levelbug.GetComponent<Animator> ().GetBool ("Dying") == true) {
 								if (startNextLevel == 0f) {
 										startNextLevel = Time.time + leveldelay;
@@ -51,22 +54,24 @@ public class LevelGenerator : MonoBehaviour
 										startNextLevel = 0f;
 										currentlevel++;
 										if (currentlevel <= maxlevel) {
-											Destroy (levelbug);
-											BuildLevel ("level" + currentlevel.ToString () + ".txt");
+												Destroy (levelbug);
+												BuildLevel ("level" + currentlevel.ToString () + ".txt");
 										}
 								}
 						}
 				}
 		}
 	
-		void BuildLevel (string filename)
+		public void BuildLevel (string filename)
 		{
 				ResetLevel ();
 
 				XmlDocument doc = new XmlDocument ();
-				doc.Load (filename);
+				doc.Load (filename);	
 				WriteCode (doc);
-				PlaceBugs (doc);
+				PlaceBug (doc);
+				PlaceObjects (doc);
+
 				
 				this.transform.position -= new Vector3 (0, (linecount / 2) * linespacing, 0);
 				this.transform.localScale += new Vector3 (0, levelLineRatio * linecount, 0);
@@ -76,6 +81,14 @@ public class LevelGenerator : MonoBehaviour
 		{
 				foreach (XmlNode codenode in doc.ChildNodes) {
 						if (codenode.Name == "code") {
+								foreach (XmlNode printnode in codenode.ChildNodes) {
+										if (printnode.Name == "print") {
+												printnode.InnerText = "<color=#00ffffff>" + printnode.InnerText + "</color>";
+										}
+										if (printnode.Name == "warp") {
+												printnode.InnerText = "<color=#ffff00ff>" + printnode.InnerText + "</color>";
+										}
+								}
 								codetext = codenode.InnerText;
 								foreach (char c in codetext) {
 										if (c == '\n')
@@ -91,7 +104,7 @@ public class LevelGenerator : MonoBehaviour
 				leveltext.GetComponent<TextMesh> ().text = codetext;
 		}
 
-		void PlaceBugs (XmlDocument doc)
+		void PlaceBug (XmlDocument doc)
 		{
 				foreach (XmlNode codenode in doc.ChildNodes) {
 						if (codenode.Name == "code") {
@@ -104,10 +117,50 @@ public class LevelGenerator : MonoBehaviour
 				}
 		}
 
-		void ResetLevel ()
+		void PlaceObjects (XmlDocument doc)
 		{
-				foreach (GameObject line in lines) {
-						Destroy (line);
+				foreach (XmlNode codenode in doc.ChildNodes) {
+						if (codenode.Name == "code") {
+								// Create the XmlNamespaceManager.
+								XmlNamespaceManager nsmgr = new XmlNamespaceManager (new NameTable ());
+				
+								// Create the XmlParserContext.
+								XmlParserContext context = new XmlParserContext (null, nsmgr, null, XmlSpace.None);
+				
+								// Create the reader.
+								XmlValidatingReader reader = new XmlValidatingReader (codenode.InnerXml, XmlNodeType.Element, context);
+				
+								IXmlLineInfo lineInfo = ((IXmlLineInfo)reader);
+								while (reader.Read()) {
+										if (reader.NodeType == XmlNodeType.Element && reader.Name == "print") {
+												GameObject newoutput = (GameObject)Instantiate (printobject, new Vector3 (-7, initialLineY - (lineInfo.LineNumber - 1) * linespacing, 1), transform.rotation);
+												outputs.Add (newoutput);
+												printer printcode = newoutput.GetComponent<printer> ();
+												printcode.displaytext = reader.GetAttribute ("text");
+												printcode.sidebar = sidebaroutput;
+										} else if (reader.NodeType == XmlNodeType.Element && reader.Name == "warp") {
+												GameObject newwarp = (GameObject)Instantiate (warpobject, new Vector3 (-7, initialLineY - (lineInfo.LineNumber - 1) * linespacing, 1), transform.rotation);
+												warps.Add (newwarp);
+												warper printcode = newwarp.GetComponent<warper> ();
+												printcode.CodeScreen = this.gameObject;
+												printcode.filename = reader.GetAttribute ("file");
+										}
+								}
+								reader.Close ();
+						}
+				}
+		}
+
+		public void ResetLevel ()
+		{
+				foreach (GameObject ln in lines) {
+						Destroy (ln);
+				}
+				foreach (GameObject op in outputs) {
+						Destroy (op);
+				}
+				foreach (GameObject wp in warps) {
+						Destroy (wp);
 				}
 				this.transform.position += new Vector3 (0, (linecount / 2) * linespacing, 0);
 				this.transform.localScale -= new Vector3 (0, levelLineRatio * linecount, 0);
