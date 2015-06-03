@@ -15,12 +15,14 @@ public class LevelGenerator : MonoBehaviour
 		public GameObject warpobject;
 		public GameObject hero;
 		public GameObject sidebaroutput;
+		public GameObject selectedtool;
+		public GameObject[] toolIcons = new GameObject[6];
 		string codetext;
+		public GameObject sidebartimer;
 		public int linecount = 0;
 		float initialLineY = 3f;
 		float linespacing = 0.825f;
 		float levelLineRatio = 0.55f;
-		int bugline = 0;
 		float bugsize = 1f;
 		float bugscale = 1.5f;
 		GameObject levelbug;
@@ -28,9 +30,14 @@ public class LevelGenerator : MonoBehaviour
 		float leveldelay = 1f;
 		float startNextLevel = 0f;
 		int maxlevel = 2;
+		int numOfTools = 6;
+		float startTime = 0f;
+		float endTime = 0f;
+		public int num_of_bugs = 0;
 		List<GameObject> lines;
 		List<GameObject> outputs;
 		List<GameObject> warps;
+		List<GameObject> bugs;
 
 
 		// Use this for initialization
@@ -39,6 +46,7 @@ public class LevelGenerator : MonoBehaviour
 				lines = new List<GameObject> ();
 				outputs = new List<GameObject> ();
 				warps = new List<GameObject> ();
+				bugs = new List<GameObject> ();
 
 				BuildLevel ("level1.txt");
 		}
@@ -46,19 +54,27 @@ public class LevelGenerator : MonoBehaviour
 		// Update is called once per frame
 		void Update ()
 		{
-				if (levelbug) {
-						if (levelbug.GetComponent<Animator> ().GetBool ("Dying") == true) {
-								if (startNextLevel == 0f) {
-										startNextLevel = Time.time + leveldelay;
-								} else if (Time.time > startNextLevel) {
-										startNextLevel = 0f;
-										currentlevel++;
-										if (currentlevel <= maxlevel) {
-												Destroy (levelbug);
-												BuildLevel ("level" + currentlevel.ToString () + ".txt");
+				sidebartimer.GetComponent<GUIText> ().text = "Time remaning: " + ((int)(endTime - Time.time)).ToString () + " seconds";
+				if (num_of_bugs == 0) {
+						
+						if (startNextLevel == 0f) {
+								startNextLevel = Time.time + leveldelay;
+						} else if (Time.time > startNextLevel) {
+								startNextLevel = 0f;
+								currentlevel++;
+								if (currentlevel <= maxlevel) {
+										foreach (GameObject bug in bugs) {
+												Destroy (bug);
 										}
+										BuildLevel ("level" + currentlevel.ToString () + ".txt");
+								} else {
+										GameOver ();
 								}
 						}
+						
+				}
+				if (endTime < Time.time && num_of_bugs > 0) {
+						GameOver ();
 				}
 		}
 	
@@ -67,19 +83,26 @@ public class LevelGenerator : MonoBehaviour
 				ResetLevel ();
 
 				XmlDocument doc = new XmlDocument ();
-				doc.Load (filename);	
-				WriteCode (doc);
-				PlaceBug (doc);
-				PlaceObjects (doc);
-
+				doc.Load (filename);
+				XmlNode levelnode = doc.FirstChild;
+				WriteCode (levelnode);
+				PlaceObjects (levelnode);
+				SetTools (levelnode);
+				
+				startTime = Time.time;
+				foreach (XmlNode timenode in levelnode.ChildNodes) {
+						if (timenode.Name == "time") {
+								endTime = (float)int.Parse (timenode.InnerText) + startTime;
+						}
+				}
 				
 				this.transform.position -= new Vector3 (0, (linecount / 2) * linespacing, 0);
 				this.transform.localScale += new Vector3 (0, levelLineRatio * linecount, 0);
 		}
 
-		void WriteCode (XmlDocument doc)
+		void WriteCode (XmlNode levelnode)
 		{
-				foreach (XmlNode codenode in doc.ChildNodes) {
+				foreach (XmlNode codenode in levelnode.ChildNodes) {
 						if (codenode.Name == "code") {
 								foreach (XmlNode printnode in codenode.ChildNodes) {
 										if (printnode.Name == "print") {
@@ -104,22 +127,9 @@ public class LevelGenerator : MonoBehaviour
 				leveltext.GetComponent<TextMesh> ().text = codetext;
 		}
 
-		void PlaceBug (XmlDocument doc)
+		void PlaceObjects (XmlNode levelnode)
 		{
-				foreach (XmlNode codenode in doc.ChildNodes) {
-						if (codenode.Name == "code") {
-								string codexml = codenode.InnerXml;
-								bugline = codexml.Substring (0, codexml.IndexOf ("<bug>")).Split ('\n').Length - 1;
-								bugsize = codexml.Substring (0, codexml.IndexOf ("</bug>")).Split ('\n').Length - bugline;
-						}
-						levelbug = (GameObject)Instantiate (bugobject, new Vector3 (-9f + (bugsize - 1) * levelLineRatio, initialLineY - (bugline + 0.5f * (bugsize - 1)) * linespacing + 0.4f, 0f), transform.rotation);
-						levelbug.transform.localScale += new Vector3 (bugscale * (bugsize - 1), bugscale * (bugsize - 1), 0);
-				}
-		}
-
-		void PlaceObjects (XmlDocument doc)
-		{
-				foreach (XmlNode codenode in doc.ChildNodes) {
+				foreach (XmlNode codenode in levelnode.ChildNodes) {
 						if (codenode.Name == "code") {
 								// Create the XmlNamespaceManager.
 								XmlNamespaceManager nsmgr = new XmlNamespaceManager (new NameTable ());
@@ -144,9 +154,32 @@ public class LevelGenerator : MonoBehaviour
 												warper printcode = newwarp.GetComponent<warper> ();
 												printcode.CodeScreen = this.gameObject;
 												printcode.filename = reader.GetAttribute ("file");
+										} else if (reader.NodeType == XmlNodeType.Element && reader.Name == "bug") {
+												bugsize = int.Parse (reader.GetAttribute ("size"));
+												levelbug = (GameObject)Instantiate (bugobject, new Vector3 (-9f + (bugsize - 1) * levelLineRatio, initialLineY - (lineInfo.LineNumber - 1 + 0.5f * (bugsize - 1)) * linespacing + 0.4f, 0f), transform.rotation);
+												levelbug.transform.localScale += new Vector3 (bugscale * (bugsize - 1), bugscale * (bugsize - 1), 0);
+												levelbug.GetComponent<GenericBug> ().codescreen = this.gameObject;
+												bugs.Add (levelbug);
+												num_of_bugs++;
 										}
 								}
 								reader.Close ();
+						}
+				}
+		}
+
+		public void SetTools (XmlNode levelnode)
+		{
+				for (int i = 0; i<numOfTools; i++) {
+						toolIcons [i].GetComponent<GUITexture> ().enabled = false;
+				}
+				foreach (XmlNode codenode in levelnode.ChildNodes) {
+						if (codenode.Name == "tools") {
+								foreach (XmlNode toolnode in codenode.ChildNodes) {
+										int toolnum = int.Parse (toolnode.InnerText);
+										toolIcons [toolnum].GetComponent<GUITexture> ().enabled = true;
+										selectedtool.GetComponent<SelectedTool> ().toolCounts [toolnum] = int.Parse (toolnode.Attributes ["count"].Value);
+								}
 						}
 				}
 		}
@@ -162,9 +195,21 @@ public class LevelGenerator : MonoBehaviour
 				foreach (GameObject wp in warps) {
 						Destroy (wp);
 				}
+				for (int i = 1; i<numOfTools; i++) {
+						toolIcons [i].GetComponent<GUITexture> ().enabled = false;
+						toolIcons [i].GetComponent<GUITexture> ().color = new Color (0.3f, 0.3f, 0.3f);
+						selectedtool.GetComponent<SelectedTool> ().toolCounts [i] = 0;
+						selectedtool.GetComponent<SelectedTool> ().projectilecode = 0;
+				}
+				Destroy (levelbug);
 				this.transform.position += new Vector3 (0, (linecount / 2) * linespacing, 0);
 				this.transform.localScale -= new Vector3 (0, levelLineRatio * linecount, 0);
 				linecount = 0;
 				hero.transform.position = leveltext.transform.position;
+		}
+
+		public void GameOver ()
+		{
+				Application.Quit ();
 		}
 }

@@ -1,0 +1,19 @@
+<code>//To Find average of forces acting on the body in one dimension 
+//Input : Integer numbers (any unit of measurement)  
+//Output: Average force on body (same units);
+#include &lt;stdio.h&gt;   
+#include &lt;conio.h&gt;   
+int avgForce(int forces[], int numOfForces) 
+               
+    int sum=0,i 
+    float avgf; 
+                 
+    for (i=0;i&lt;numOfForces;i) 
+    { 
+        sum=sumforces[i]; 
+        avgf= float(sum/numOfForces);  
+    }  
+    <bug>avgf++</bug>;
+    return avgf;    
+}
+</code>

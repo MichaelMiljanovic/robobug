@@ -1,12 +1,13 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\LevelGenerator.cs">
     <Files>
-      <File FileName="Assets\Scripts\LevelGenerator.cs" Line="136" Column="12" />
+      <File FileName="Assets\Scripts\LevelGenerator.cs" Line="98" Column="5" />
       <File FileName="Assets\Scripts\warper.cs" Line="20" Column="32" />
       <File FileName="Assets\Scripts\printer.cs" Line="15" Column="15" />
-      <File FileName="Assets\Scripts\SelectedTool.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\hero2Controller.cs" Line="123" Column="84" />
+      <File FileName="Assets\Scripts\SelectedTool.cs" Line="7" Column="10" />
+      <File FileName="Assets\Scripts\hero2Controller.cs" Line="24" Column="1" />
+      <File FileName="Assets\Scripts\GenericBug.cs" Line="27" Column="5" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

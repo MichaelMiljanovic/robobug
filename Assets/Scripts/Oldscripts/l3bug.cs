@@ -10,7 +10,7 @@ public class l3bug : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		this.renderer.enabled = false;
+		this.GetComponent<Renderer>().enabled = false;
 	}
 	
 	// Update is called once per frame
@@ -18,11 +18,11 @@ public class l3bug : MonoBehaviour {
 		
 	}
 	void OnTriggerEnter2D(Collider2D p){
-		if (p.name == "projectileBug(Clone)" && this.renderer.enabled == false) {
+		if (p.name == "projectileBug(Clone)" && this.GetComponent<Renderer>().enabled == false) {
 		//	if (l3bug1.renderer.enabled == true && l3bug2.renderer.enabled == true){
 				TextMesh tm = l3output.GetComponent<TextMesh>();
 				tm.text = "Correct!";
-				this.renderer.enabled = true;
+				this.GetComponent<Renderer>().enabled = true;
 				GetComponent<Animator>().SetBool("Dying", true);
 				GetComponent<AudioSource>().Play();
 				Destroy(p.gameObject);

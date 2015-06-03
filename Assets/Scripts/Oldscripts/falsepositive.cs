@@ -11,23 +11,23 @@ public class falsepositive : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		this.renderer.enabled = false;
-		text.renderer.enabled = false;
+		this.GetComponent<Renderer>().enabled = false;
+		text.GetComponent<Renderer>().enabled = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (Time.time > hideself) {
-			this.renderer.enabled = false;
-			text.renderer.enabled = false;
+			this.GetComponent<Renderer>().enabled = false;
+			text.GetComponent<Renderer>().enabled = false;
 		}
 	}
 
 	void OnTriggerEnter2D(Collider2D p){
 		if (p.name == "projectileBug(Clone)") {
 		//	Destroy (p.gameObject);
-			this.renderer.enabled = true;
-			text.renderer.enabled = true;
+			this.GetComponent<Renderer>().enabled = true;
+			text.GetComponent<Renderer>().enabled = true;
 			GetComponent<AudioSource>().Play();
 			fplabel.GetComponent<TextMesh>().text = "Caught";
 			hideself = Time.time + showdelay;

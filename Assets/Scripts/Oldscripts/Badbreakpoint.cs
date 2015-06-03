@@ -8,19 +8,19 @@ public class Badbreakpoint : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		this.renderer.enabled = false;
+		this.GetComponent<Renderer>().enabled = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (Time.time > removetext) {
-			this.renderer.enabled = false;
+			this.GetComponent<Renderer>().enabled = false;
 		}
 	}
 
 	void OnTriggerEnter2D(Collider2D c){
 		if (c.name == "projectileDebug(Clone)") {
-			this.renderer.enabled = true;
+			this.GetComponent<Renderer>().enabled = true;
 			removetext = Time.time + textdelay;
 		}
 	}

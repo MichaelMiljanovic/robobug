@@ -13,13 +13,13 @@ public class l2bug : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		this.renderer.enabled = false;
+		this.GetComponent<Renderer>().enabled = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (text.GetComponent<TextMesh>().text == "ERROR!!!"){
-			this.renderer.enabled = true;
+			this.GetComponent<Renderer>().enabled = true;
 			GetComponent<Animator>().SetBool("Dying", true);
 			if (!played){
 				GetComponent<AudioSource>().Play();

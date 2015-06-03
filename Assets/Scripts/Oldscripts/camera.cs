@@ -306,7 +306,7 @@ public class camera : MonoBehaviour {
 			}
 		}
 
-		if (level == 6 && l6report.renderer.enabled == true){
+		if (level == 6 && l6report.GetComponent<Renderer>().enabled == true){
 			if (delaytime == 0f){
 				delaytime = Time.time + delayamount;
 			}
@@ -325,7 +325,7 @@ public class camera : MonoBehaviour {
 			level = 63;
 		}
 
-		if (level == 63 && lastbug.renderer.enabled == true) {
+		if (level == 63 && lastbug.GetComponent<Renderer>().enabled == true) {
 
 			if (delaytime == 0f){
 				delaytime = Time.time + delayamount;
@@ -337,7 +337,7 @@ public class camera : MonoBehaviour {
 			}
 		}
 
-		if (level == 7 && verylastbug.renderer.enabled == true) {
+		if (level == 7 && verylastbug.GetComponent<Renderer>().enabled == true) {
 			if (delaytime == 0f){
 				delaytime = Time.time + delayamount;
 			}
@@ -358,8 +358,8 @@ public class camera : MonoBehaviour {
 		case -1:
 			tm.text = "0";
 			//camera.transform.position = startScreen;
-			camera.transform.position = intropos;
-			camera.orthographicSize = 6;
+			GetComponent<Camera>().transform.position = intropos;
+			GetComponent<Camera>().orthographicSize = 6;
 			if (Input.GetButtonDown("Jump")){
 				level = 0;
 			}
@@ -396,8 +396,8 @@ public class camera : MonoBehaviour {
 			}*/
 			break;
 		case 0:
-			camera.transform.position = instructScreen;
-			camera.orthographicSize = 6;
+			GetComponent<Camera>().transform.position = instructScreen;
+			GetComponent<Camera>().orthographicSize = 6;
 			if (Input.GetButtonDown("Jump")){
 				level = 100;
 				ltxt.text = "start1";
@@ -408,8 +408,8 @@ public class camera : MonoBehaviour {
 			}
 			break;
 		case 100:
-			camera.transform.position = intropos;
-			camera.orthographicSize = 6;
+			GetComponent<Camera>().transform.position = intropos;
+			GetComponent<Camera>().orthographicSize = 6;
 			if (Input.GetButtonDown("Jump")){
 				level = 10;
 				ltxt.text = "L";
@@ -421,8 +421,8 @@ public class camera : MonoBehaviour {
 			}
 			break;
 		case 10:
-			camera.transform.position = new Vector3 (l10.transform.position.x, l10.transform.position.y, -5f);
-			camera.orthographicSize = 8;
+			GetComponent<Camera>().transform.position = new Vector3 (l10.transform.position.x, l10.transform.position.y, -5f);
+			GetComponent<Camera>().orthographicSize = 8;
 			if (Input.GetButtonDown("Jump")){
 				level = 1;
 				target.transform.position = level1Start;
@@ -433,13 +433,13 @@ public class camera : MonoBehaviour {
 			}
 			break;
 		case 1:
-			camera.transform.position = new Vector3 (l1.transform.position.x+4, target.transform.position.y, -5f);
-			camera.orthographicSize = 7;
+			GetComponent<Camera>().transform.position = new Vector3 (l1.transform.position.x+4, target.transform.position.y, -5f);
+			GetComponent<Camera>().orthographicSize = 7;
 			break;
 
 		case 200:
-			camera.orthographicSize = 8;
-			camera.transform.position = new Vector3(success.transform.position.x, success.transform.position.y, -5f);
+			GetComponent<Camera>().orthographicSize = 8;
+			GetComponent<Camera>().transform.position = new Vector3(success.transform.position.x, success.transform.position.y, -5f);
 			if (Input.GetButtonDown("Jump")){
 				ltxt.text = "start2";
 				level = 201;
@@ -449,8 +449,8 @@ public class camera : MonoBehaviour {
 			}
 			break;
 		case 201:
-			camera.orthographicSize = 6;
-			camera.transform.position = intropos;
+			GetComponent<Camera>().orthographicSize = 6;
+			GetComponent<Camera>().transform.position = intropos;
 			if (Input.GetButtonDown("Jump")){
 				level = 20;
 				ltxt.text = "L";
@@ -462,8 +462,8 @@ public class camera : MonoBehaviour {
 			break;
 
 		case 20:
-			camera.transform.position = new Vector3 (l20.transform.position.x, l20.transform.position.y, -5f);
-			camera.orthographicSize = 8;
+			GetComponent<Camera>().transform.position = new Vector3 (l20.transform.position.x, l20.transform.position.y, -5f);
+			GetComponent<Camera>().orthographicSize = 8;
 			if (Input.GetButtonDown("Jump")){
 				level = 2;
 				tm.text = "2";
@@ -473,37 +473,37 @@ public class camera : MonoBehaviour {
 			}
 			break;
 		case 2:
-			camera.transform.position = new Vector3 (l2.transform.position.x+4, target.transform.position.y, -5f);
-			camera.orthographicSize = 7;
+			GetComponent<Camera>().transform.position = new Vector3 (l2.transform.position.x+4, target.transform.position.y, -5f);
+			GetComponent<Camera>().orthographicSize = 7;
 			break;
 		case 21:
-			camera.transform.position = new Vector3 (l2a.transform.position.x, l2a.transform.position.y, -5f);
-			camera.orthographicSize = 6;
+			GetComponent<Camera>().transform.position = new Vector3 (l2a.transform.position.x, l2a.transform.position.y, -5f);
+			GetComponent<Camera>().orthographicSize = 6;
 			break;
 		case 22:
-			camera.transform.position = new Vector3 (l2b.transform.position.x, l2b.transform.position.y, -5f);
-			camera.orthographicSize = 6;
+			GetComponent<Camera>().transform.position = new Vector3 (l2b.transform.position.x, l2b.transform.position.y, -5f);
+			GetComponent<Camera>().orthographicSize = 6;
 			break;
 		case 23:
-			camera.transform.position = new Vector3 (l2c.transform.position.x, l2c.transform.position.y, -5f);
-			camera.orthographicSize = 6;
+			GetComponent<Camera>().transform.position = new Vector3 (l2c.transform.position.x, l2c.transform.position.y, -5f);
+			GetComponent<Camera>().orthographicSize = 6;
 			break;
 		case 24:
-			camera.transform.position = new Vector3 (l2d.transform.position.x, l2d.transform.position.y, -5f);;
-			camera.orthographicSize = 6;
+			GetComponent<Camera>().transform.position = new Vector3 (l2d.transform.position.x, l2d.transform.position.y, -5f);;
+			GetComponent<Camera>().orthographicSize = 6;
 			break;
 		case 25:
-			camera.transform.position = new Vector3 (l2e.transform.position.x, l2e.transform.position.y, -5f);;
-			camera.orthographicSize = 6;
+			GetComponent<Camera>().transform.position = new Vector3 (l2e.transform.position.x, l2e.transform.position.y, -5f);;
+			GetComponent<Camera>().orthographicSize = 6;
 			break;
 		case 26:
-			camera.transform.position = new Vector3 (l2f.transform.position.x, l2f.transform.position.y, -5f);;
-			camera.orthographicSize = 6;
+			GetComponent<Camera>().transform.position = new Vector3 (l2f.transform.position.x, l2f.transform.position.y, -5f);;
+			GetComponent<Camera>().orthographicSize = 6;
 			break;
 
 		case 300:
-			camera.orthographicSize = 8;
-			camera.transform.position = new Vector3(success.transform.position.x, success.transform.position.y, -5f);
+			GetComponent<Camera>().orthographicSize = 8;
+			GetComponent<Camera>().transform.position = new Vector3(success.transform.position.x, success.transform.position.y, -5f);
 			if (Input.GetButtonDown("Jump")){
 				ltxt.text = "start3";
 				level = 301;
@@ -513,8 +513,8 @@ public class camera : MonoBehaviour {
 			}
 			break;
 		case 301:
-			camera.orthographicSize = 6;
-			camera.transform.position = intropos;
+			GetComponent<Camera>().orthographicSize = 6;
+			GetComponent<Camera>().transform.position = intropos;
 			if (Input.GetButtonDown("Jump")){
 				level = 30;
 				ltxt.text = "L";
@@ -525,8 +525,8 @@ public class camera : MonoBehaviour {
 			}
 			break;
 		case 30:
-			camera.transform.position = new Vector3 (l30.transform.position.x, l30.transform.position.y, -5f);
-			camera.orthographicSize = 8;
+			GetComponent<Camera>().transform.position = new Vector3 (l30.transform.position.x, l30.transform.position.y, -5f);
+			GetComponent<Camera>().orthographicSize = 8;
 			if (Input.GetButtonDown("Jump")){
 				level = 3;
 				tm.text = "3";
@@ -537,17 +537,17 @@ public class camera : MonoBehaviour {
 			}
 			break;
 		case 3:
-			camera.transform.position = new Vector3 (l3.transform.position.x+4, target.transform.position.y, -5f);
-			camera.orthographicSize = 7;
+			GetComponent<Camera>().transform.position = new Vector3 (l3.transform.position.x+4, target.transform.position.y, -5f);
+			GetComponent<Camera>().orthographicSize = 7;
 			break;
 		case 31:
-			camera.transform.position = new Vector3 (l31.transform.position.x+4, target.transform.position.y, -5f);
-			camera.orthographicSize = 7;
+			GetComponent<Camera>().transform.position = new Vector3 (l31.transform.position.x+4, target.transform.position.y, -5f);
+			GetComponent<Camera>().orthographicSize = 7;
 			break;
 
 		case 400:
-			camera.orthographicSize = 8;
-			camera.transform.position = new Vector3(success.transform.position.x, success.transform.position.y, -5f);
+			GetComponent<Camera>().orthographicSize = 8;
+			GetComponent<Camera>().transform.position = new Vector3(success.transform.position.x, success.transform.position.y, -5f);
 			if (Input.GetButtonDown("Jump")){
 				ltxt.text = "start4";
 				level = 401;
@@ -557,8 +557,8 @@ public class camera : MonoBehaviour {
 			}
 			break;
 		case 401:
-			camera.orthographicSize = 6;
-			camera.transform.position = intropos;
+			GetComponent<Camera>().orthographicSize = 6;
+			GetComponent<Camera>().transform.position = intropos;
 			if (Input.GetButtonDown("Jump")){
 				level = 40;
 				ltxt.text = "L";
@@ -569,8 +569,8 @@ public class camera : MonoBehaviour {
 			}
 			break;
 		case 40:
-			camera.transform.position = new Vector3 (l40.transform.position.x, l40.transform.position.y, -5f);
-			camera.orthographicSize = 8;
+			GetComponent<Camera>().transform.position = new Vector3 (l40.transform.position.x, l40.transform.position.y, -5f);
+			GetComponent<Camera>().orthographicSize = 8;
 			if (Input.GetButtonDown("Jump")){
 				level = 4;
 				tm.text = "4";
@@ -581,61 +581,61 @@ public class camera : MonoBehaviour {
 			}
 			break;
 		case 4:
-			camera.transform.position = new Vector3 (l4.transform.position.x+4, target.transform.position.y, -5f);;
-			camera.orthographicSize = 7;
+			GetComponent<Camera>().transform.position = new Vector3 (l4.transform.position.x+4, target.transform.position.y, -5f);;
+			GetComponent<Camera>().orthographicSize = 7;
 			break;
 		case 41:
-			camera.transform.position = new Vector3 (l4bla.transform.position.x+4, target.transform.position.y, -5f);;
-			camera.orthographicSize = 7;
+			GetComponent<Camera>().transform.position = new Vector3 (l4bla.transform.position.x+4, target.transform.position.y, -5f);;
+			GetComponent<Camera>().orthographicSize = 7;
 			break;
 		case 42:
-			camera.transform.position = new Vector3 (l4blu.transform.position.x+4, target.transform.position.y, -5f);;
-			camera.orthographicSize = 7;
+			GetComponent<Camera>().transform.position = new Vector3 (l4blu.transform.position.x+4, target.transform.position.y, -5f);;
+			GetComponent<Camera>().orthographicSize = 7;
 			break;
 		case 43:
-			camera.transform.position = new Vector3 (l4br.transform.position.x+4, target.transform.position.y, -5f);;
-			camera.orthographicSize = 7;
+			GetComponent<Camera>().transform.position = new Vector3 (l4br.transform.position.x+4, target.transform.position.y, -5f);;
+			GetComponent<Camera>().orthographicSize = 7;
 			break;
 		case 44:
-			camera.transform.position = new Vector3 (l4c.transform.position.x+4, target.transform.position.y, -5f);;
-			camera.orthographicSize = 7;
+			GetComponent<Camera>().transform.position = new Vector3 (l4c.transform.position.x+4, target.transform.position.y, -5f);;
+			GetComponent<Camera>().orthographicSize = 7;
 			break;
 		case 45:
-			camera.transform.position = new Vector3 (l4gree.transform.position.x+4, target.transform.position.y, -5f);;
-			camera.orthographicSize = 7;
+			GetComponent<Camera>().transform.position = new Vector3 (l4gree.transform.position.x+4, target.transform.position.y, -5f);;
+			GetComponent<Camera>().orthographicSize = 7;
 			break;
 		case 46:
-			camera.transform.position = new Vector3 (l4grey.transform.position.x+4, target.transform.position.y, -5f);;
-			camera.orthographicSize = 7;
+			GetComponent<Camera>().transform.position = new Vector3 (l4grey.transform.position.x+4, target.transform.position.y, -5f);;
+			GetComponent<Camera>().orthographicSize = 7;
 			break;
 		case 47:
-			camera.transform.position = new Vector3 (l4m.transform.position.x+4, target.transform.position.y, -5f);;
-			camera.orthographicSize = 7;
+			GetComponent<Camera>().transform.position = new Vector3 (l4m.transform.position.x+4, target.transform.position.y, -5f);;
+			GetComponent<Camera>().orthographicSize = 7;
 			break;
 		case 48:
-			camera.transform.position = new Vector3 (l4n.transform.position.x+4, target.transform.position.y, -5f);;
-			camera.orthographicSize = 7;
+			GetComponent<Camera>().transform.position = new Vector3 (l4n.transform.position.x+4, target.transform.position.y, -5f);;
+			GetComponent<Camera>().orthographicSize = 7;
 			break;
 		case 49:
-			camera.transform.position = new Vector3 (l4o.transform.position.x+4, target.transform.position.y, -5f);;
-			camera.orthographicSize = 7;
+			GetComponent<Camera>().transform.position = new Vector3 (l4o.transform.position.x+4, target.transform.position.y, -5f);;
+			GetComponent<Camera>().orthographicSize = 7;
 			break;
 		case 410:
-			camera.transform.position = new Vector3 (l4r.transform.position.x+4, target.transform.position.y, -5f);;
-			camera.orthographicSize = 7;
+			GetComponent<Camera>().transform.position = new Vector3 (l4r.transform.position.x+4, target.transform.position.y, -5f);;
+			GetComponent<Camera>().orthographicSize = 7;
 			break;
 		case 411:
-			camera.transform.position = new Vector3 (l4w.transform.position.x+4, target.transform.position.y, -5f);;
-			camera.orthographicSize = 7;
+			GetComponent<Camera>().transform.position = new Vector3 (l4w.transform.position.x+4, target.transform.position.y, -5f);;
+			GetComponent<Camera>().orthographicSize = 7;
 			break;
 		case 412:
-			camera.transform.position = new Vector3 (l4y.transform.position.x+4, target.transform.position.y, -5f);;
-			camera.orthographicSize = 7;
+			GetComponent<Camera>().transform.position = new Vector3 (l4y.transform.position.x+4, target.transform.position.y, -5f);;
+			GetComponent<Camera>().orthographicSize = 7;
 			break;
 
 		case 500:
-			camera.orthographicSize = 8;
-			camera.transform.position = new Vector3(success.transform.position.x, success.transform.position.y, -5f);
+			GetComponent<Camera>().orthographicSize = 8;
+			GetComponent<Camera>().transform.position = new Vector3(success.transform.position.x, success.transform.position.y, -5f);
 			if (Input.GetButtonDown("Jump")){
 				ltxt.text = "start5";
 				level = 501;
@@ -645,8 +645,8 @@ public class camera : MonoBehaviour {
 			}
 			break;
 		case 501:
-			camera.orthographicSize = 6;
-			camera.transform.position = intropos;
+			GetComponent<Camera>().orthographicSize = 6;
+			GetComponent<Camera>().transform.position = intropos;
 			if (Input.GetButtonDown("Jump")){
 				level = 50;
 				ltxt.text = "L";
@@ -657,12 +657,12 @@ public class camera : MonoBehaviour {
 			}
 			break;
 		case 5:
-			camera.transform.position = new Vector3 (l5.transform.position.x+4, target.transform.position.y, -5f);;
-			camera.orthographicSize = 7;
+			GetComponent<Camera>().transform.position = new Vector3 (l5.transform.position.x+4, target.transform.position.y, -5f);;
+			GetComponent<Camera>().orthographicSize = 7;
 			break;
 		case 50:
-			camera.transform.position = new Vector3 (l50.transform.position.x, l50.transform.position.y, -5f);
-			camera.orthographicSize = 8;
+			GetComponent<Camera>().transform.position = new Vector3 (l50.transform.position.x, l50.transform.position.y, -5f);
+			GetComponent<Camera>().orthographicSize = 8;
 			if (Input.GetButtonDown("Jump")){
 				level = 5;
 				tm.text = "5";
@@ -674,42 +674,42 @@ public class camera : MonoBehaviour {
 			break;
 
 		case 6:
-			camera.transform.position = new Vector3 (l6.transform.position.x+2, target.transform.position.y, -5f);;
-			camera.orthographicSize = 5;
+			GetComponent<Camera>().transform.position = new Vector3 (l6.transform.position.x+2, target.transform.position.y, -5f);;
+			GetComponent<Camera>().orthographicSize = 5;
 			break;
 		case 60:
-			camera.transform.position = new Vector3 (l60.transform.position.x, l60.transform.position.y, -5f);
-			camera.orthographicSize = 6;
+			GetComponent<Camera>().transform.position = new Vector3 (l60.transform.position.x, l60.transform.position.y, -5f);
+			GetComponent<Camera>().orthographicSize = 6;
 			if (Input.GetButtonDown("Jump")){
 				level = 6;
 				target.transform.position = level6Start;
 			}
 			break;
 		case 61:
-			camera.transform.position = new Vector3 (l6a.transform.position.x, l6a.transform.position.y, -5f);
-			camera.orthographicSize = 6;
+			GetComponent<Camera>().transform.position = new Vector3 (l6a.transform.position.x, l6a.transform.position.y, -5f);
+			GetComponent<Camera>().orthographicSize = 6;
 			break;
 		case 62:
-			camera.transform.position = new Vector3 (l6b.transform.position.x, l6b.transform.position.y, -5f);
-			camera.orthographicSize = 6;
+			GetComponent<Camera>().transform.position = new Vector3 (l6b.transform.position.x, l6b.transform.position.y, -5f);
+			GetComponent<Camera>().orthographicSize = 6;
 			break;
 		case 63:
-			camera.transform.position = new Vector3 (l6c.transform.position.x+2, target.transform.position.y, -5f);;
-			camera.orthographicSize = 5;
+			GetComponent<Camera>().transform.position = new Vector3 (l6c.transform.position.x+2, target.transform.position.y, -5f);;
+			GetComponent<Camera>().orthographicSize = 5;
 			break;
 		case 64:
-			camera.transform.position = new Vector3 (l6d.transform.position.x, target.transform.position.y, -5f);
-			camera.orthographicSize = 5;
+			GetComponent<Camera>().transform.position = new Vector3 (l6d.transform.position.x, target.transform.position.y, -5f);
+			GetComponent<Camera>().orthographicSize = 5;
 			break;
 
 		case 7:
-			camera.transform.position = new Vector3 (l7.transform.position.x+2, target.transform.position.y, -5f);
-			camera.orthographicSize = 5;
+			GetComponent<Camera>().transform.position = new Vector3 (l7.transform.position.x+2, target.transform.position.y, -5f);
+			GetComponent<Camera>().orthographicSize = 5;
 			break;
 
 		case 999:
-			camera.orthographicSize = 8;
-			camera.transform.position = new Vector3(success.transform.position.x, success.transform.position.y, -5f);
+			GetComponent<Camera>().orthographicSize = 8;
+			GetComponent<Camera>().transform.position = new Vector3(success.transform.position.x, success.transform.position.y, -5f);
 			if (Input.GetButtonDown("Jump")){
 				ltxt.text = "end";
 				level = 9999;
@@ -721,8 +721,8 @@ public class camera : MonoBehaviour {
 		case 9999:
 		//	camera.transform.position = new Vector3 (end.transform.position.x, end.transform.position.y, -5f);;
 	//		camera.orthographicSize = 3;
-			camera.transform.position = intropos;
-			camera.orthographicSize = 6;
+			GetComponent<Camera>().transform.position = intropos;
+			GetComponent<Camera>().orthographicSize = 6;
 			break;
 		}
 

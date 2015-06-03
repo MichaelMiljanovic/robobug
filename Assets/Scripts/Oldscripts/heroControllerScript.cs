@@ -60,10 +60,10 @@ public class heroControllerScript : MonoBehaviour {
 		float up = Input.GetAxis ("Vertical");
 		if (up > 0) {
 			onWall = true;
-			rigidbody2D.gravityScale = 0;
+			GetComponent<Rigidbody2D>().gravityScale = 0;
 		} if (up < 0) {
 			onWall = false;
-			rigidbody2D.gravityScale = 1;
+			GetComponent<Rigidbody2D>().gravityScale = 1;
 		}
 
 		//set animation for movement
@@ -93,31 +93,31 @@ public class heroControllerScript : MonoBehaviour {
 
 		//move up if on the wall, otherwise let gravity do the work
 		if (dropping) {
-			if (rigidbody2D.velocity.y == 0){
-			rigidbody2D.isKinematic = true;
-			rigidbody2D.AddForce(Vector2.up*-50);
-			rigidbody2D.isKinematic = false;
+			if (GetComponent<Rigidbody2D>().velocity.y == 0){
+			GetComponent<Rigidbody2D>().isKinematic = true;
+			GetComponent<Rigidbody2D>().AddForce(Vector2.up*-50);
+			GetComponent<Rigidbody2D>().isKinematic = false;
 			}
-			rigidbody2D.velocity = new Vector2 (move * maxSpeed, rigidbody2D.velocity.y);
+			GetComponent<Rigidbody2D>().velocity = new Vector2 (move * maxSpeed, GetComponent<Rigidbody2D>().velocity.y);
 				} else {
 						if (!onWall) {
-								rigidbody2D.velocity = new Vector2 (move * maxSpeed, Mathf.Min (0f, rigidbody2D.velocity.y));
+								GetComponent<Rigidbody2D>().velocity = new Vector2 (move * maxSpeed, Mathf.Min (0f, GetComponent<Rigidbody2D>().velocity.y));
 						} else {
-				rigidbody2D.isKinematic = true;
-								rigidbody2D.velocity = new Vector2 (move * maxSpeed, up * climbSpeed);
-				rigidbody2D.isKinematic = false;
+				GetComponent<Rigidbody2D>().isKinematic = true;
+								GetComponent<Rigidbody2D>().velocity = new Vector2 (move * maxSpeed, up * climbSpeed);
+				GetComponent<Rigidbody2D>().isKinematic = false;
 						}
 				}
 	}
 	void Update(){
 
 		AudioSource ad = GetComponent<AudioSource> ();
-		if (!walkloop && Input.GetAxis ("Horizontal") != 0f && rigidbody2D.velocity.y == 0) {
+		if (!walkloop && Input.GetAxis ("Horizontal") != 0f && GetComponent<Rigidbody2D>().velocity.y == 0) {
 			ad.Play();
 			walkloop = true;
 			ad.loop = true;
 		}
-		if (Input.GetAxis ("Horizontal") == 0f || rigidbody2D.velocity.y != 0) {
+		if (Input.GetAxis ("Horizontal") == 0f || GetComponent<Rigidbody2D>().velocity.y != 0) {
 			ad.loop = false;
 			walkloop = false;
 		}
@@ -212,7 +212,7 @@ public class heroControllerScript : MonoBehaviour {
 		}*/
 
 	//firing
-		if ((Input.GetKeyDown ("left ctrl")||Input.GetKeyDown ("right ctrl")) && Time.time > nextFire && !onWall && rigidbody2D.velocity == Vector2.zero) {
+		if ((Input.GetKeyDown ("left ctrl")||Input.GetKeyDown ("right ctrl")) && Time.time > nextFire && !onWall && GetComponent<Rigidbody2D>().velocity == Vector2.zero) {
 			anim.SetBool ("throw", true);
 			nextFire = Time.time + fireRate;
 			animDelay = Time.time + animTime;
@@ -228,44 +228,44 @@ public class heroControllerScript : MonoBehaviour {
 			case 1:
 				newstar = (Rigidbody2D) Instantiate(projectileB, transform.position, transform.rotation);
 				if (facingRight){
-					newstar.rigidbody2D.AddForce(Vector2.right*300);}
+					newstar.GetComponent<Rigidbody2D>().AddForce(Vector2.right*300);}
 				else{
-					newstar.rigidbody2D.AddForce(Vector2.right*-300);}
+					newstar.GetComponent<Rigidbody2D>().AddForce(Vector2.right*-300);}
 				break;
 			case 2:
 				newstar = (Rigidbody2D) Instantiate(projectileT, transform.position, transform.rotation);
 				if (facingRight){
-					newstar.rigidbody2D.AddForce(Vector2.right*300);}
+					newstar.GetComponent<Rigidbody2D>().AddForce(Vector2.right*300);}
 				else{
-					newstar.rigidbody2D.AddForce(Vector2.right*-300);}
+					newstar.GetComponent<Rigidbody2D>().AddForce(Vector2.right*-300);}
 				break;
 			case 3:
 				newstar = (Rigidbody2D) Instantiate(projectileA, transform.position, transform.rotation);
 				if (facingRight){
-					newstar.rigidbody2D.AddForce(Vector2.right*300);}
+					newstar.GetComponent<Rigidbody2D>().AddForce(Vector2.right*300);}
 				else{
-					newstar.rigidbody2D.AddForce(Vector2.right*-300);}
+					newstar.GetComponent<Rigidbody2D>().AddForce(Vector2.right*-300);}
 				break;
 			case 4:
 				newstar = (Rigidbody2D) Instantiate(projectileD, transform.position, transform.rotation);
 				if (facingRight){
-					newstar.rigidbody2D.AddForce(Vector2.right*300);}
+					newstar.GetComponent<Rigidbody2D>().AddForce(Vector2.right*300);}
 				else{
-					newstar.rigidbody2D.AddForce(Vector2.right*-300);}
+					newstar.GetComponent<Rigidbody2D>().AddForce(Vector2.right*-300);}
 				break;
 			case 5:
 				newstar = (Rigidbody2D) Instantiate(projectileW, transform.position, transform.rotation);
 				if (facingRight){
-					newstar.rigidbody2D.AddForce(Vector2.right*300);}
+					newstar.GetComponent<Rigidbody2D>().AddForce(Vector2.right*300);}
 				else{
-					newstar.rigidbody2D.AddForce(Vector2.right*-300);}
+					newstar.GetComponent<Rigidbody2D>().AddForce(Vector2.right*-300);}
 				break;
 			case 6:
 				newstar = (Rigidbody2D) Instantiate(projectileH, transform.position, transform.rotation);
 				if (facingRight){
-					newstar.rigidbody2D.AddForce(Vector2.right*300);}
+					newstar.GetComponent<Rigidbody2D>().AddForce(Vector2.right*300);}
 				else{
-					newstar.rigidbody2D.AddForce(Vector2.right*-300);}
+					newstar.GetComponent<Rigidbody2D>().AddForce(Vector2.right*-300);}
 				break;
 			}
 			//Rigidbody2D newstar = (Rigidbody2D) Instantiate(projectile, transform.position, transform.rotation);

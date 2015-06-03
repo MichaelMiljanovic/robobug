@@ -10,8 +10,8 @@ public class breakpoint : MonoBehaviour {
 	void Start () {
 		//SpriteRenderer sr = GetComponent<SpriteRenderer> ();
 	//	sr.color = Color.black;
-		this.renderer.enabled=false;
-		continuer.renderer.enabled=false;
+		this.GetComponent<Renderer>().enabled=false;
+		continuer.GetComponent<Renderer>().enabled=false;
 	}
 	
 	// Update is called once per frame
@@ -22,16 +22,16 @@ public class breakpoint : MonoBehaviour {
 		if (c.name == "projectileDebug(Clone)") {
 			SpriteRenderer sr = GetComponent<SpriteRenderer> ();
 			if (sr.color == Color.black){
-				this.renderer.enabled=true;
-				continuer.renderer.enabled=true;
+				this.GetComponent<Renderer>().enabled=true;
+				continuer.GetComponent<Renderer>().enabled=true;
 				sr.color = Color.red;
 				GetComponent<AudioSource>().Play();
 			}
 			//else if (sr.color == Color.red){
 			else{
 				sr.color = Color.black;
-				this.renderer.enabled=false;
-				continuer.renderer.enabled=false;
+				this.GetComponent<Renderer>().enabled=false;
+				continuer.GetComponent<Renderer>().enabled=false;
 			}
 		}
 	}

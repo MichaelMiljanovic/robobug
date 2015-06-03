@@ -14,10 +14,10 @@ public class l6variables : MonoBehaviour {
 	void Update () {
 		string lvl = level.GetComponent<TextMesh>().text;
 		if (lvl == "6") {
-			this.guiText.enabled = true;
+			this.GetComponent<GUIText>().enabled = true;
 		}
 		else{
-			this.guiText.enabled = false;
+			this.GetComponent<GUIText>().enabled = false;
 		}
 	}
 }

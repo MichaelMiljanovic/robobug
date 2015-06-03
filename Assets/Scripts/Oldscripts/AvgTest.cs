@@ -24,7 +24,7 @@ public class AvgTest : MonoBehaviour
 		{
 				result.GetComponent<TextMesh> ().text = resultText;
 				if (Time.time > removetext) {
-			result.renderer.enabled = false;
+			result.GetComponent<Renderer>().enabled = false;
 				}
 
 
@@ -50,7 +50,7 @@ public class AvgTest : MonoBehaviour
 											result.GetComponent<TextMesh> ().color = Color.red;
 											resultText = "ERROR!!!";
 											removetext = Time.time + textdelay;
-											result.renderer.enabled = true;
+											result.GetComponent<Renderer>().enabled = true;
 										} else {
 												string[] vals = inputText.Split (',');
 												int sum = 0;
@@ -63,11 +63,11 @@ public class AvgTest : MonoBehaviour
 												if (avg == System.Convert.ToDouble (outputText)) {
 														resultText = "True.";
 														removetext = Time.time + textdelay;
-							result.renderer.enabled = true;
+							result.GetComponent<Renderer>().enabled = true;
 												} else {
 														resultText = "False.";
 														removetext = Time.time + textdelay;
-							result.renderer.enabled = true;
+							result.GetComponent<Renderer>().enabled = true;
 												}
 										}
 								}

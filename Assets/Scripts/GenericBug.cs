@@ -4,13 +4,12 @@ using System.Collections;
 public class GenericBug : MonoBehaviour {
 		public Animator anim;
 		public bool dead = false;
-		float deathtime = 1.5f;
-		float deathdelay = 0f;
 		public bool finished = false;
+	public GameObject codescreen;
 		
 		// Use this for initialization
 		void Start () {
-			this.renderer.enabled = false;
+			this.GetComponent<Renderer>().enabled = false;
 			anim = GetComponent<Animator>();
 		}
 		
@@ -20,12 +19,12 @@ public class GenericBug : MonoBehaviour {
 		
 		void OnTriggerEnter2D(Collider2D p){
 			if (p.name == "projectileBug(Clone)") {
-				this.renderer.enabled = true;
+				this.GetComponent<Renderer>().enabled = true;
 				Destroy (p.gameObject);
 				anim.SetBool("Dying", true);
 				GetComponent<AudioSource>().Play();
 				dead = true;
-				deathdelay = Time.time + deathtime;
+				codescreen.GetComponent<LevelGenerator>().num_of_bugs--;
 			}
 		}
 	}

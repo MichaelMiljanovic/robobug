@@ -6,16 +6,10 @@ public class hero2Controller : MonoBehaviour
 
 		public float maxSpeed = 10f;
 		public float climbSpeed = 10f;
-		public Rigidbody2D projectile;
-		public Rigidbody2D projectileB;
-		public Rigidbody2D projectileT;
-		public Rigidbody2D projectileA;
-		public Rigidbody2D projectileD;
-		public Rigidbody2D projectileW;
-		public Rigidbody2D projectileH;
+		public Rigidbody2D[] projectiles = new Rigidbody2D[6];
+		public GameObject[] toolIcons = new GameObject[6];
 		private bool walkloop = false;
-		int projectilecode = 1;
-		public GameObject projectileobject;
+		public int projectilecode = 0;
 		public bool onWall = false;
 		bool facingRight = true;
 		float fireRate = 0.1f;
@@ -28,8 +22,6 @@ public class hero2Controller : MonoBehaviour
 		private float dropDelay = 0.0f;
 		bool quitting = false;
 
-
-
 		// Use this for initialization
 		void Start ()
 		{
@@ -38,19 +30,16 @@ public class hero2Controller : MonoBehaviour
 
 		void FixedUpdate ()
 		{
-
-
-
 				//movement
 				float move = Input.GetAxis ("Horizontal");
 				float up = Input.GetAxis ("Vertical");
 				if (up > 0) {
 						onWall = true;
-						rigidbody2D.gravityScale = 0;
+						GetComponent<Rigidbody2D>().gravityScale = 0;
 				}
 				if (up < 0) {
 						onWall = false;
-						rigidbody2D.gravityScale = 1;
+						GetComponent<Rigidbody2D>().gravityScale = 1;
 				}
 
 				//set animation for movement
@@ -80,19 +69,19 @@ public class hero2Controller : MonoBehaviour
 
 				//move up if on the wall, otherwise let gravity do the work
 				if (dropping) {
-						if (rigidbody2D.velocity.y == 0) {
-								rigidbody2D.isKinematic = true;
-								rigidbody2D.AddForce (Vector2.up * -50);
-								rigidbody2D.isKinematic = false;
+						if (GetComponent<Rigidbody2D>().velocity.y == 0) {
+								GetComponent<Rigidbody2D>().isKinematic = true;
+								GetComponent<Rigidbody2D>().AddForce (Vector2.up * -50);
+								GetComponent<Rigidbody2D>().isKinematic = false;
 						}
-						rigidbody2D.velocity = new Vector2 (move * maxSpeed, rigidbody2D.velocity.y);
+						GetComponent<Rigidbody2D>().velocity = new Vector2 (move * maxSpeed, GetComponent<Rigidbody2D>().velocity.y);
 				} else {
 						if (!onWall) {
-								rigidbody2D.velocity = new Vector2 (move * maxSpeed, Mathf.Min (0f, rigidbody2D.velocity.y));
+								GetComponent<Rigidbody2D>().velocity = new Vector2 (move * maxSpeed, Mathf.Min (0f, GetComponent<Rigidbody2D>().velocity.y));
 						} else {
-								rigidbody2D.isKinematic = true;
-								rigidbody2D.velocity = new Vector2 (move * maxSpeed, up * climbSpeed);
-								rigidbody2D.isKinematic = false;
+								GetComponent<Rigidbody2D>().isKinematic = true;
+								GetComponent<Rigidbody2D>().velocity = new Vector2 (move * maxSpeed, up * climbSpeed);
+								GetComponent<Rigidbody2D>().isKinematic = false;
 						}
 				}
 		}
@@ -101,81 +90,26 @@ public class hero2Controller : MonoBehaviour
 		{
 
 				AudioSource ad = GetComponent<AudioSource> ();
-				if (!walkloop && Input.GetAxis ("Horizontal") != 0f && rigidbody2D.velocity.y == 0 && !onWall) {
+				if (!walkloop && Input.GetAxis ("Horizontal") != 0f && GetComponent<Rigidbody2D>().velocity.y == 0 && !onWall) {
 						ad.Play ();
 						walkloop = true;
 						ad.loop = true;
 				}
-				if (Input.GetAxis ("Horizontal") == 0f || rigidbody2D.velocity.y != 0 || onWall) {
+				if (Input.GetAxis ("Horizontal") == 0f || GetComponent<Rigidbody2D>().velocity.y != 0 || onWall) {
 						ad.loop = false;
 						walkloop = false;
 				}
 
-				//stars
-				if (Input.GetKeyDown ("tab")) {
-						projectilecode = (projectilecode + 1) % 7;
-						if (projectilecode == 0) {
-								projectilecode = 1;
-						}
-				}
-
 				//firing
-				if ((Input.GetKeyDown ("left ctrl") || Input.GetKeyDown ("right ctrl")) && Time.time > nextFire && !onWall && rigidbody2D.velocity == Vector2.zero) {
+				if ((Input.GetKeyDown ("left ctrl") || Input.GetKeyDown ("right ctrl")) && Time.time > nextFire && !onWall && GetComponent<Rigidbody2D>().velocity == Vector2.zero) {
 						anim.SetBool ("throw", true);
 						nextFire = Time.time + fireRate;
 						animDelay = Time.time + animTime;
-						Rigidbody2D newstar;
-						switch (projectilecode) {
-						case 0:
-								break;
-						case 1:
-								newstar = (Rigidbody2D)Instantiate (projectileB, transform.position, transform.rotation);
-								if (facingRight) {
-										newstar.rigidbody2D.AddForce (Vector2.right * 300);
-								} else {
-										newstar.rigidbody2D.AddForce (Vector2.right * -300);
-								}
-								break;
-						case 2:
-								newstar = (Rigidbody2D)Instantiate (projectileT, transform.position, transform.rotation);
-								if (facingRight) {
-										newstar.rigidbody2D.AddForce (Vector2.right * 300);
-								} else {
-										newstar.rigidbody2D.AddForce (Vector2.right * -300);
-								}
-								break;
-						case 3:
-								newstar = (Rigidbody2D)Instantiate (projectileA, transform.position, transform.rotation);
-								if (facingRight) {
-										newstar.rigidbody2D.AddForce (Vector2.right * 300);
-								} else {
-										newstar.rigidbody2D.AddForce (Vector2.right * -300);
-								}
-								break;
-						case 4:
-								newstar = (Rigidbody2D)Instantiate (projectileD, transform.position, transform.rotation);
-								if (facingRight) {
-										newstar.rigidbody2D.AddForce (Vector2.right * 300);
-								} else {
-										newstar.rigidbody2D.AddForce (Vector2.right * -300);
-								}
-								break;
-						case 5:
-								newstar = (Rigidbody2D)Instantiate (projectileW, transform.position, transform.rotation);
-								if (facingRight) {
-										newstar.rigidbody2D.AddForce (Vector2.right * 300);
-								} else {
-										newstar.rigidbody2D.AddForce (Vector2.right * -300);
-								}
-								break;
-						case 6:
-								newstar = (Rigidbody2D)Instantiate (projectileH, transform.position, transform.rotation);
-								if (facingRight) {
-										newstar.rigidbody2D.AddForce (Vector2.right * 300);
-								} else {
-										newstar.rigidbody2D.AddForce (Vector2.right * -300);
-								}
-								break;
+						Rigidbody2D newstar = (Rigidbody2D)Instantiate (projectiles [projectilecode], transform.position, transform.rotation);
+						if (facingRight) {
+								newstar.GetComponent<Rigidbody2D>().AddForce (Vector2.right * 300);
+						} else {
+								newstar.GetComponent<Rigidbody2D>().AddForce (Vector2.right * -300);
 						}
 				}
 				if (Time.time > animDelay) {

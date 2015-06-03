@@ -13,7 +13,7 @@ public class bug : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		this.renderer.enabled = false;
+		this.GetComponent<Renderer>().enabled = false;
 		anim = GetComponent<Animator>();
 	}
 	
@@ -29,7 +29,7 @@ public class bug : MonoBehaviour {
 	
 	void OnTriggerEnter2D(Collider2D p){
 		if (p.name == "projectileBug(Clone)") {
-			this.renderer.enabled = true;
+			this.GetComponent<Renderer>().enabled = true;
 			Destroy (p.gameObject);
 			anim.SetBool("Dying", true);
 	//		dead = true;

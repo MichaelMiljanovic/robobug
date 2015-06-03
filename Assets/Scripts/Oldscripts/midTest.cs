@@ -27,7 +27,7 @@ public class midTest : MonoBehaviour
 		{
 				result.GetComponent<TextMesh> ().text = resultText;
 				if (Time.time > removetext) {
-						result.renderer.enabled = false;
+						result.GetComponent<Renderer>().enabled = false;
 				}
 			
 
@@ -56,7 +56,7 @@ public class midTest : MonoBehaviour
 										if (!sorted) {
 												result.GetComponent<TextMesh> ().color = Color.red;
 												resultText = "ERROR!!!";
-												result.renderer.enabled = true;
+												result.GetComponent<Renderer>().enabled = true;
 												removetext = Time.time + textdelay;
 										} else if (inputText != "" && outputText != "") {
 												if (vals.Length % 2 == 0) {
@@ -68,11 +68,11 @@ public class midTest : MonoBehaviour
 												if (mid == System.Convert.ToDouble (outputText)) {
 														resultText = "True.";
 														removetext = Time.time + textdelay;
-														result.renderer.enabled = true;
+														result.GetComponent<Renderer>().enabled = true;
 												} else {
 														resultText = "False.";
 														removetext = Time.time + textdelay;
-														result.renderer.enabled = true;	
+														result.GetComponent<Renderer>().enabled = true;	
 												}
 										}
 								}

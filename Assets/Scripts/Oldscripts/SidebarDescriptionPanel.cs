@@ -14,9 +14,9 @@ public class SidebarDescriptionPanel : MonoBehaviour {
 	void Update () {
 		int levelnum = System.Convert.ToInt16 (level.GetComponent<TextMesh> ().text);
 		if (levelnum > 0 && levelnum < 100) {
-						this.guiTexture.enabled = true;
+						this.GetComponent<GUITexture>().enabled = true;
 				} else {
-			this.guiTexture.enabled = false;
+			this.GetComponent<GUITexture>().enabled = false;
 				}
 	}
 }

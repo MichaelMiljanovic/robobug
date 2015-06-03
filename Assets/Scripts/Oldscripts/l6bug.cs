@@ -6,7 +6,7 @@ public class l6bug : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		this.renderer.enabled = false;
+		this.GetComponent<Renderer>().enabled = false;
 	}
 	
 	// Update is called once per frame
@@ -15,7 +15,7 @@ public class l6bug : MonoBehaviour {
 	}
 	void OnTriggerEnter2D(Collider2D p){
 		if (p.name == "projectileBug(Clone)") {
-			this.renderer.enabled = true;
+			this.GetComponent<Renderer>().enabled = true;
 			GetComponent<Animator>().SetBool("Dying", true);
 			Destroy(p.gameObject);
 		}

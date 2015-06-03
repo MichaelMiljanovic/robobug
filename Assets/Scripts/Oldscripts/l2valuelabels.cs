@@ -14,9 +14,9 @@ public class l2valuelabels : MonoBehaviour {
 	void Update () {
 		int levelnum = System.Convert.ToInt16(level.GetComponent<TextMesh> ().text);
 		if (levelnum == 2) {
-			this.guiText.enabled = true;
+			this.GetComponent<GUIText>().enabled = true;
 		} else {
-			this.guiText.enabled = false;
+			this.GetComponent<GUIText>().enabled = false;
 		}
 	}
 }

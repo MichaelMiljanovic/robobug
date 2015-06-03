@@ -28,7 +28,7 @@ public class breakpointHandler : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		this.renderer.enabled = false;
+		this.GetComponent<Renderer>().enabled = false;
 		colors = namedcolors.Replace ("},{", "@").Split('@');
 		//colors = namedcolors.Split('@');
 		breakstate = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};

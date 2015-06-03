@@ -20,7 +20,6 @@ public class warper : MonoBehaviour {
 		if (c.name == "projectileWarp(Clone)"){
 			Destroy(c.gameObject);
 			LevelGenerator lg = CodeScreen.GetComponent<LevelGenerator>();
-			lg.ResetLevel();
 			lg.BuildLevel(filename);
 		}
 	}

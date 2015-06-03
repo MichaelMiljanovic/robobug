@@ -12,7 +12,7 @@ public class Answer : MonoBehaviour
 		// Use this for initialization
 		void Start ()
 		{
-				this.renderer.enabled = false;
+				this.GetComponent<Renderer>().enabled = false;
 				
 		}
 	
@@ -25,7 +25,7 @@ public class Answer : MonoBehaviour
 								startingTime = Time.time;
 						}
 						if (Time.time > 600 + startingTime) {
-								this.renderer.enabled = true;
+								this.GetComponent<Renderer>().enabled = true;
 						}
 				}
 		}
