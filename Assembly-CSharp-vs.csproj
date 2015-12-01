@@ -46,9 +46,14 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Breakpoint.cs" />
      <Compile Include="Assets\Scripts\Camera2.cs" />
+     <Compile Include="Assets\Scripts\Cinematic.cs" />
+     <Compile Include="Assets\Scripts\Comic.cs" />
      <Compile Include="Assets\Scripts\GenericBug.cs" />
      <Compile Include="Assets\Scripts\LevelGenerator.cs" />
+     <Compile Include="Assets\Scripts\Logger.cs" />
+     <Compile Include="Assets\Scripts\Menu.cs" />
      <Compile Include="Assets\Scripts\Oldscripts\Answer.cs" />
      <Compile Include="Assets\Scripts\Oldscripts\AvgTest.cs" />
      <Compile Include="Assets\Scripts\Oldscripts\Badbreakpoint.cs" />
@@ -169,9 +174,13 @@
      <Compile Include="Assets\Scripts\Oldscripts\starttime.cs" />
      <Compile Include="Assets\Scripts\Oldscripts\success.cs" />
      <Compile Include="Assets\Scripts\Oldscripts\sumTest.cs" />
+     <Compile Include="Assets\Scripts\Output.cs" />
+     <Compile Include="Assets\Scripts\PrizeBug.cs" />
      <Compile Include="Assets\Scripts\SelectedTool.cs" />
+     <Compile Include="Assets\Scripts\commentBlock.cs" />
      <Compile Include="Assets\Scripts\hero2Controller.cs" />
      <Compile Include="Assets\Scripts\printer.cs" />
+     <Compile Include="Assets\Scripts\projectile2.cs" />
      <Compile Include="Assets\Scripts\warper.cs" />
  <Reference Include="Assembly-UnityScript-firstpass">
  <HintPath>C:/Users/Michael/Documents/RoboBUG 2 - Return of the Bugs/robobug/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
